@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salamandra | Deconstrucción de Sesgo Noticioso y Trazabilidad OSINT</title>
+  <meta name="description" content="Sistema multi-agente autónomo A2A para verificación de noticias, eliminación de sesgo político, OSINT forense de operadores de la ley e inmutabilidad histórica.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/static/img/salamandra_logo.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand-badge">
+        <span class="pulse-dot"></span>
+        Red Multi-Agente A2A Activa • Google ADK
+      </div>
+      <div class="header-branding">
+        <img src="/static/img/salamandra_logo.png" alt="Salamandra Logo" class="app-logo">
+        <div class="header-text-group">
+          <h1 class="app-title">SALAMANDRA</h1>
+          <p class="app-subtitle">
+            Desmantelamiento de sesgo mediático, contrastación multi-fuente, trazabilidad forense de dependencias de seguridad y libro mayor inmutable.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Central App Navigation Bar -->
+    <nav class="app-navbar" id="app-navbar" role="navigation" aria-label="Navegación principal">
+      <button type="button" class="nav-btn active" data-view="view-new-query" id="nav-btn-query">
+        <span class="nav-icon">🔍</span>
+        <span class="nav-text">Nueva Consulta</span>
+      </button>
+      <button type="button" class="nav-btn" data-view="view-history" id="nav-btn-history">
+        <span class="nav-icon">📋</span>
+        <span class="nav-text">Historial de Reportes</span>
+        <span id="nav-history-badge" class="nav-badge">0</span>
+      </button>
+      <button type="button" class="nav-btn" data-view="view-directory" id="nav-btn-directory">
+        <span class="nav-icon">🏛️</span>
+        <span class="nav-text">Directorio de Entidades</span>
+        <span id="nav-dir-badge" class="nav-badge">0</span>
+      </button>
+      <button type="button" class="nav-btn" data-view="view-report" id="nav-btn-report">
+        <span class="nav-icon">📄</span>
+        <span class="nav-text">Informe Detallado</span>
+      </button>
+      <button type="button" class="nav-btn" data-view="view-ledger" id="nav-btn-ledger">
+        <span class="nav-icon">⛓️</span>
+        <span class="nav-text">Libro Mayor</span>
+      </button>
+    </nav>
+
+    <!-- Views Main Container -->
+    <main class="views-container">
+
+      <!-- ===================================================================
+           VIEW 1: NUEVA CONSULTA
+           =================================================================== -->
+      <section id="view-new-query" class="view-pane active">
+        <div class="glass-panel query-hero-card">
+          <div class="query-hero-header">
+            <h2>🔍 Iniciar Nueva Investigación Autónoma</h2>
+            <p>Introduce la URL de una nota periodística o redacta el suceso, operativo policial o hecho ministerial que deseas auditar.</p>
+          </div>
+
+          <form id="news-investigate-form">
+            <div class="url-input-container">
+              <span class="input-icon">🔗</span>
+              <input 
+                type="text" 
+                id="news-url-input" 
+                class="url-input" 
+                placeholder="Ingresa la URL del artículo o describe el hecho / operativo a verificar..." 
+                required
+              >
+              <button type="submit" id="analyze-btn" class="action-btn">
+                <span id="btn-spinner" class="spinner" style="display: none;"></span>
+                <span id="btn-text">Desmantelar Sesgo</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="query-tips-row">
+            <span>💡 <strong>Consejo:</strong> El pipeline autónomo rastreará el organigrama oficial de la dependencia, contrastará agencias neutras, analizará el sesgo editorial y guardará los mandos en el directorio.</span>
+          </div>
+        </div>
+
+        <!-- Pipeline Live Visual Tracker -->
+        <section id="pipeline-tracker" class="glass-panel pipeline-tracker">
+          <div class="pipeline-header">
+            <div class="pipeline-title">
+              <span>⚡ Pipeline de Investigación Autónomo</span>
+            </div>
+            <span class="badge badge-police">7 Microservicios Conectados</span>
+          </div>
+
+          <div class="pipeline-steps">
+            <div id="step-extract" class="step-card">
+              <div class="step-header">
+                <span class="step-name">FactExtractor</span>
+                <span class="step-status">Espera</span>
+              </div>
+              <div class="step-desc">Extracción de hechos, institución y contexto.</div>
+            </div>
+
+            <div id="step-gov-scout" class="step-card">
+              <div class="step-header">
+                <span class="step-name">GovDirectoryScout</span>
+                <span class="step-status">Espera</span>
+              </div>
+              <div class="step-desc">Mapeo de organigramas y filtro clave para OSINT.</div>
+            </div>
+
+            <div id="step-corroborate" class="step-card">
+              <div class="step-header">
+                <span class="step-name">CrossCorroborator</span>
+                <span class="step-status">Espera</span>
+              </div>
+              <div class="step-desc">Contraste en fuentes opuestas y agencias neutras.</div>
+            </div>
+
+            <div id="step-source" class="step-card">
+              <div class="step-header">
+                <span class="step-name">SourceAnalyst</span>
+                <span class="step-status">Espera</span>
+              </div>
+              <div class="step-desc">Auditoría de dueños, publicidad e intereses.</div>
+            </div>
+
+            <div id="step-osint" class="step-card">
+              <div class="step-header">
+                <span class="step-name">OsintAnalyst</span>
+                <span class="step-status">Espera</span>
+              </div>
+              <div class="step-desc">Cadena de mando y abusos históricos de carrera.</div>
+            </div>
+
+            <div id="step-bias" class="step-card">
+              <div class="step-header">
+                <span class="step-name">BiasAnalyst</span>
+                <span class="step-status">Espera</span>
+              </div>
+              <div class="step-desc">Deconstrucción retórica, encuadre y omisiones.</div>
+            </div>
+
+            <div id="step-orchestrator" class="step-card">
+              <div class="step-header">
+                <span class="step-name">Orchestrator</span>
+                <span class="step-status">Espera</span>
+              </div>
+              <div class="step-desc">Síntesis libre de sesgo y veredicto definitivo.</div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 2: HISTORIAL DE REPORTES
+           =================================================================== -->
+      <section id="view-history" class="view-pane">
+        <div class="glass-panel history-panel">
+          <div class="section-title-bar">
+            <div>
+              <h2 class="section-heading">📋 Historial de Reportes y Evaluaciones</h2>
+              <p class="section-subheading">
+                Registro cronológico persistente de artículos investigados, medios de procedencia y funcionarios públicos implicados.
+              </p>
+            </div>
+            <button type="button" id="refresh-history-btn" class="btn-secondary" title="Actualizar lista">
+              🔄 Actualizar
+            </button>
+          </div>
+
+          <!-- History Filter Toolbar: Date presets, custom date range & search -->
+          <div class="history-filter-toolbar">
+            <div class="history-filter-row">
+              <div class="history-search-group">
+                <span class="search-icon">🔍</span>
+                <input 
+                  type="text" 
+                  id="history-search-input" 
+                  class="filter-input" 
+                  placeholder="Buscar por nombre de artículo, web o palabra clave..."
+                >
+              </div>
+
+              <div class="date-range-group">
+                <label for="history-date-start" class="filter-label">Desde:</label>
+                <input type="date" id="history-date-start" class="date-picker-input">
+                <label for="history-date-end" class="filter-label">Hasta:</label>
+                <input type="date" id="history-date-end" class="date-picker-input">
+              </div>
+
+              <button type="button" id="clear-history-filters-btn" class="btn-ghost" title="Restablecer filtros">
+                ✕ Limpiar
+              </button>
+            </div>
+
+            <div class="date-presets-row">
+              <span class="presets-label">Filtros rápidos de fecha:</span>
+              <button type="button" class="date-preset-pill active" data-preset="all">Todos</button>
+              <button type="button" class="date-preset-pill" data-preset="today">Hoy</button>
+              <button type="button" class="date-preset-pill" data-preset="7d">Últimos 7 días</button>
+              <button type="button" class="date-preset-pill" data-preset="30d">Últimos 30 días</button>
+            </div>
+          </div>
+
+          <!-- History List / Table View -->
+          <div class="history-table-wrapper" id="history-table-container">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th style="width: 32%;">Artículo / Título de la Consulta</th>
+                  <th style="width: 16%;">Web / Fuente</th>
+                  <th style="width: 14%;">Fecha de Análisis</th>
+                  <th style="width: 26%;">Funcionarios Implicados</th>
+                  <th style="width: 12%; text-align: right;">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <!-- Dynamically injected rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 3: DIRECTORIO DE ENTIDADES Y OPERADORES
+           =================================================================== -->
+      <section id="view-directory" class="view-pane">
+        <div class="glass-panel directory-panel">
+          <div class="section-title-bar">
+            <div>
+              <h2 class="section-heading">🏛️ Directorio de Entidades y Operadores Evaluados</h2>
+              <p class="section-subheading">
+                Catálogo de dependencias de seguridad y justicia, mandos operativos, historial de cargos y estatus de quejas documentadas.
+              </p>
+            </div>
+            <div class="view-toggle">
+              <button type="button" id="view-cards-btn" class="view-btn active" title="Vista de Tarjetas">🗂️ Tarjetas</button>
+              <button type="button" id="view-table-btn" class="view-btn" title="Vista de Tabla Ejecutiva">📑 Tabla</button>
+            </div>
+          </div>
+
+          <!-- Comprehensive Directory Filter Toolbar -->
+          <div class="dir-filters-card">
+            <div class="dir-filters-grid">
+              <!-- Filter 1: Entidad Federativa -->
+              <div class="filter-field">
+                <label for="filter-jurisdiction" class="filter-field-label">🗺️ Entidad Federativa</label>
+                <select id="filter-jurisdiction" class="filter-select">
+                  <option value="todos">Todas las entidades</option>
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+
+              <!-- Filter 2: Institución / Corporación -->
+              <div class="filter-field">
+                <label for="filter-agency" class="filter-field-label">🏢 Institución / Dependencia</label>
+                <select id="filter-agency" class="filter-select">
+                  <option value="todos">Todas las instituciones</option>
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+
+              <!-- Filter 3: Status de Reportes -->
+              <div class="filter-field">
+                <label for="filter-status" class="filter-field-label">🚨 Status de Reportes</label>
+                <select id="filter-status" class="filter-select">
+                  <option value="todos">Todos los estatus</option>
+                  <option value="con_reportes">⚠️ Con reportes de abuso documentados</option>
+                  <option value="sin_reportes">✓ Sin antecedentes validados</option>
+                  <option value="en_investigacion">⚖️ En investigación / Impune</option>
+                </select>
+              </div>
+
+              <!-- Filter 4: Text Search -->
+              <div class="filter-field">
+                <label for="dir-search-input" class="filter-field-label">🔍 Búsqueda Específica</label>
+                <input 
+                  type="text" 
+                  id="dir-search-input" 
+                  class="filter-input" 
+                  placeholder="Nombre, cargo, placa o ID..."
+                >
+              </div>
+            </div>
+
+            <!-- Sector Pills & Reset -->
+            <div class="dir-filters-footer">
+              <div class="sector-pills" id="sector-filter-pills">
+                <span class="sector-pills-label">Sector:</span>
+                <button type="button" class="sector-pill active" data-sector="todos">Todos</button>
+                <button type="button" class="sector-pill" data-sector="policial">👮 Policial</button>
+                <button type="button" class="sector-pill" data-sector="fiscalía">⚖️ Fiscalía</button>
+                <button type="button" class="sector-pill" data-sector="judicial">🏛️ Judicial</button>
+                <button type="button" class="sector-pill" data-sector="administrativo">🏢 Administrativo</button>
+              </div>
+              <button type="button" id="clear-dir-filters-btn" class="btn-ghost">
+                ✕ Restablecer Filtros
+              </button>
+            </div>
+          </div>
+
+          <!-- Status Bar -->
+          <div class="dir-status-bar">
+            <span id="dir-count-badge" class="badge badge-police">Cargando operadores...</span>
+            <span class="dir-hint">Haz clic en cualquier operador para abrir su expediente forense completo, antecedentes y datos de contacto.</span>
+          </div>
+
+          <!-- Cards View -->
+          <div class="directory-grid" id="directory-cards-container">
+            <!-- Dynamically injected operator cards -->
+          </div>
+
+          <!-- Table View -->
+          <div class="directory-table-wrapper" id="directory-table-container" style="display: none;">
+            <table class="directory-table">
+              <thead>
+                <tr>
+                  <th>Operador / Funcionario</th>
+                  <th>Entidad / Estado</th>
+                  <th>Sector</th>
+                  <th>Institución / Corporación</th>
+                  <th>Cargo o Rango</th>
+                  <th>Periodo / Fechas</th>
+                  <th>Incidentes</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="directory-table-body">
+                <!-- Dynamically injected table rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 4: INFORME DETALLADO DE VERDAD OBJETIVA
+           =================================================================== -->
+      <section id="view-report" class="view-pane">
+        <div class="glass-panel report-panel">
+          <div class="report-toolbar" id="report-toolbar">
+            <div class="report-toolbar-left">
+              <button type="button" id="back-to-history-btn" class="btn-secondary btn-sm" title="Regresar al historial">
+                ← Volver al Historial
+              </button>
+              <div class="report-meta-info" id="report-meta-info">
+                <!-- Dynamically shows current investigation query/URL -->
+              </div>
+            </div>
+            <button type="button" id="copy-report-btn" class="btn-secondary btn-sm" title="Copiar reporte al portapapeles">
+              📋 Copiar Reporte
+            </button>
+          </div>
+
+          <div id="report-markdown-container" class="report-content">
+            <!-- Dynamically injected report -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 5: LIBRO MAYOR INMUTABLE
+           =================================================================== -->
+      <section id="view-ledger" class="view-pane">
+        <div class="glass-panel ledger-panel">
+          <div class="section-title-bar">
+            <div>
+              <h2 class="section-heading">⛓️ Libro Mayor Inmutable (SHA-256)</h2>
+              <p class="section-subheading">
+                Cadena cronológica inmutable de bloques criptográficos donde cada acción sobre funcionarios y análisis queda sellada contra alteración.
+              </p>
+            </div>
+            <span id="ledger-status-badge" class="badge badge-police">Verificando...</span>
+          </div>
+
+          <div class="ledger-list" id="ledger-cards-container">
+            <!-- Dynamically injected ledger blocks -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Dossier Forense Modal -->
+  <div id="dossier-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span id="modal-operator-badge" class="badge badge-police">Sector</span>
+          <h2 id="modal-operator-name" class="modal-title">Nombre del Operador</h2>
+          <div id="modal-operator-meta" class="modal-sub">Institución • Cargo</div>
+        </div>
+        <button type="button" id="modal-close-btn" class="modal-close" title="Cerrar">&times;</button>
+      </div>
+
+      <div class="modal-body" id="modal-body-content">
+        <!-- Injected Dossier content -->
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="modal-copy-md-btn" class="btn-secondary">
+          📋 Copiar Dossier en Markdown
+        </button>
+        <button type="button" id="modal-close-bottom-btn" class="btn-primary">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

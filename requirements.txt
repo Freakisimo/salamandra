@@ -1,0 +1,13 @@
+google-adk[a2a]
+requests
+python-dotenv
+uvicorn
+fastapi
+pydantic
+pydantic-settings
+ddgs
+duckduckgo_search
+beautifulsoup4
+aiosqlite
+pytest
+pytest-asyncio
